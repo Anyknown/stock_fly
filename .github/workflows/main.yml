@@ -1,25 +1,21 @@
 name: Stock Fly
-
-on:
-  
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+'on':
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
 jobs:
-  run_script:
-    runs-on: ubuntu-latest
-    
-    steps:
-      
-      - uses: actions/checkout@v3
-     
-      - name: Install yahoo_fin
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.x'
-          packages: yahoo_fin
-      
-      - name: Run python script
-        run: python3 stock_fly.py
+    run_script:
+        runs-on: ubuntu-latest
+        steps:
+            -
+                uses: actions/checkout@v3
+            -
+                name: Install yahoo_fin
+                run: |
+                    pip install --user yahoo_fin
+            -
+                name: Run python script
+                run: python3 stock_fly.py
