@@ -4,6 +4,8 @@ import sys
 
 tickers = ["NFLX", "U", "TSLA", "DOCN"]
 
+purchase_prices = sys.argv[1:]
+
 data = pd.DataFrame()
 
 data["Purchase Price"] = []
@@ -11,8 +13,7 @@ data["Current Price"] = []
 data["% Change"] = []
 
 for index, ticker in enumerate(tickers):
-    purchase_price = input(f"Enter purchase price for {ticker}: ")
-    data.loc[index, "Purchase Price"] = purchase_price
+    data.loc[index, "Purchase Price"] = float(purchase_prices[index])
 
 for ticker in tickers:
     stock = yahoo_fin.StockInfo(ticker)
