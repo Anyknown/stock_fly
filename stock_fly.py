@@ -1,21 +1,34 @@
+import os
+import sys
+import requests
 import yfinance as yf
-import builtins
 import pandas as pd
-import webbrowser
 
-def stock_fly(tickers, purchase_prices):
-    data = yf.download(tickers=tickers, period="1y", interval="1d")
-    change = (data["Close"] - purchase_prices)/purchase_prices
-    for ticker, price, change_percent in zip(data["ticker"], data["Close"], change):
-        print(f"{ticker}: Price: ${price:,.2f} | Percent Change: {change_percent:.2%}")
+if not os.path.exists(".yfinance-installed"):
+    print("Installing yfinance...")
+    os.system("pip install yfinance")
+    open(".yfinance-installed", "w").close()
 
-tickers = input("Enter the ticker symbols you want to include (separated by spaces): ").split()
-purchase_prices = []
-for ticker in tickers:
-    purchase_prices.append(float(input(f"Enter the purchase price for {ticker}: ")))
+tickers = ["DOCN", "U", "TSLA", "AMZN"]
+purchase_price = [None, None, None, None]
 
-stock_fly(tickers, purchase_prices)
+data = pd.DataFrame()
 
-data.to_csv("stock_data.csv")
+data["Purchase Price"] = purchase_price
+data["Current Price"] = []
+data["% Change"] = []
 
-webbrowser.open("https://files.pythonanywhere.com/files/AnyKnown/stock_data.csv", new=2)
+for ticker, purchase_price in zip(tickers, purchase_price):
+    stock = yf.Ticker(ticker)
+    current_price = stock.price
+
+    if purchase_price is None:
+        percent_change = 0
+else:
+        percent_change = (current_price - purchase_price) / purchase_price
+
+    data.loc[data["Current Price"] == "", "Current Price"] = current_price
+    data.loc[data["Purchase Price"] == "", "Purchase Price"] = purchase_price
+    data.loc[data["% Change"] == "", "% Change"] = percent_change
+
+print(data)
