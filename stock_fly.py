@@ -23,7 +23,7 @@ for ticker, purchase_price in zip(tickers, purchase_price):
     stock = yf.Ticker(ticker)
     stock_info = stock.info
 
-    current_price = stock_info["close"]
+    current_price = stock_info["regularMarketPrice"]
     if purchase_price is None:
         percent_change = 0
 else:
