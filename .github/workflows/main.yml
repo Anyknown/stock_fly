@@ -1,28 +1,29 @@
 name: Stock Fly
-'on':
-    push:
-        branches:
-            - main
-    pull_request:
-        branches:
-            - main
+env:
+    python:
+        - 3.8
+install:
+    - pip install yfinance
 jobs:
-    run_script:
+    build:
         runs-on: ubuntu-latest
         steps:
             -
                 uses: actions/checkout@v3
             -
-                name: Install yahoo_fin
+                name: Set up Python
+                uses: actions/setup-python@v3
+                with:
+                    python-version: 3.8
+            -
+                name: Install dependencies
                 run: |
-                    pip install --user yahoo_fin
+                    pip install -r requirements.txt
             -
-                name: Prompt for purchase prices
-                id: purchase_prices
-                run: 'echo "Enter purchase prices (comma-separated):"'
-                shell: bash
+                name: Execute stock_fly.py
+                run: |
+                    python stock_fly.py
             -
-                name: Run python script
-                run: >
-                    python3 stock_fly.py ${{
-                    steps.purchase_prices.outputs.purchase_prices }}
+                name: Show table
+                run: |
+                    echo "##show table"
