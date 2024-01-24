@@ -29,8 +29,8 @@ for index, ticker in enumerate(tickers):
 for ticker in tickers:
     stock = yahoo_fin.Ticker(ticker) # Use yahoo_fin.Ticker instead of StockInfo
 current_price = stock.price
-    data.loc[data["Current Price"] == "", "Current Price"] = current_price
 
+data.loc[data["Current Price"] == "", "Current Price"] = current_price # Fix indentation
 
 for index, row in data.iterrows():
     current_price = data.loc[index, "Current Price"]
