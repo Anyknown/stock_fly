@@ -24,5 +24,4 @@ for ticker in tickers:
     current_price = stock.price
     data.loc[data["Current Price"] == "", "Current Price"] = current_price
 
-data.display()
 data.to_csv("stock_data.csv")
