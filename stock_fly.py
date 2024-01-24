@@ -11,7 +11,7 @@ if not os.path.exists(".yfinance-installed"):
     os.system("pip install yfinance")
     open(".yfinance-installed", "w").close()
 
-tickers = ["AAPL", "GOOGL", "MSFT", "AMZN"]
+tickers = ["DOCN", "U", "TSLA", "AMZN"]
 purchase_price = [None, None, None, None]
 
 data = pd.DataFrame()
@@ -24,7 +24,7 @@ for ticker, purchase_price in zip(tickers, purchase_price):
     stock = yf.Ticker(ticker)
     stock_info = stock.info
 
-    current_price = stock_info["regularMarketPrice"]
+    current_price = stock_info["regularMarketClose"]
     if purchase_price is None:
         percent_change = 0
 else:
