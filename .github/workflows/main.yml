@@ -1,0 +1,17 @@
+name: Stock Fly
+'on':
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+jobs:
+    run_script:
+        runs-on: ubuntu-latest
+        steps:
+            -
+                uses: actions/checkout@v3
+            -
+                name: Run python script
+                run: python3 stock_fly.py
