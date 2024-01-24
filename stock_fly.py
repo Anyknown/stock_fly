@@ -21,7 +21,9 @@ data["% Change"] = np.empty(len(tickers))
 
 for ticker, purchase_price in zip(tickers, purchase_price):
     stock = yf.Ticker(ticker)
-    current_price = stock.price
+    stock_info = stock.info
+
+    current_price = stock_info["price"]
 
     if purchase_price is None:
         percent_change = 0
