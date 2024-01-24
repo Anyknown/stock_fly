@@ -18,15 +18,10 @@ data["Purchase Price"] = []
 data["Current Price"] = []
 data["% Change"] = []
 
-stock = yf.Ticker(ticker)
-current_price = stock.price
-data.loc[data["Current Price"] == "", "Current Price"] = current_price
-
-for index, row in data.iterrows():
-    if row["Purchase Price"] != 0:
-        percent_change = (current_price - row["Purchase Price"]) / row["Purchase Price"]
-    else:
-        percent_change = 0
-data.loc[index, "% Change"] = percent_change
+for ticker in tickers:
+    ticker = tickers[0]
+    stock = yf.Ticker(ticker)
+    current_price = stock.price
+    data.loc[data["Current Price"] == "", "Current Price"] = current_price
 
 print(data)
