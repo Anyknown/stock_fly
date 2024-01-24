@@ -21,8 +21,7 @@ data["% Change"] = []
 
 
 for index, ticker in enumerate(tickers):
-  
-if index < len(purchase_prices):
+    if index < len(purchase_prices):
         data.loc[index, "Purchase Price"] = purchase_prices[index]
     else:
         data.loc[index, "Purchase Price"] = 0
@@ -32,6 +31,7 @@ for ticker in tickers:
     current_price = stock.current_price
     data.loc[data["Current Price"] == "", "Current Price"] = current_price
 
+
 for index, row in data.iterrows():
     current_price = data.loc[index, "Current Price"]
     if row["Purchase Price"] != 0:
@@ -39,5 +39,6 @@ for index, row in data.iterrows():
     else:
         percent_change = 0
 data.loc[index, "% Change"] = percent_change
+
 
 print(data)
