@@ -1,33 +1,23 @@
 name: Stock Fly
-'on':
-    push:
-        branches:
-            - main
-env:
-    python:
-        - 3.8
-install:
-    - pip install yfinance
+on:
+  push:
+    branches:
+    - main
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            -
-                uses: actions/checkout@v3
-            -
-                name: Set up Python
-                uses: actions/setup-python@v3
-                with:
-                    python-version: 3.8
-            -
-                name: Install dependencies
-                run: |
-                    pip install -r requirements.txt
-            -
-                name: Execute stock_fly.py
-                run: |
-                    python stock_fly.py
-            -
-                name: Show table
-                run: |
-                    echo "##show table"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    - name: Execute stock_fly.py
+      run: |
+        python stock_fly.py
+    - name: Show table
+      run: |
+        echo "##[table]"
