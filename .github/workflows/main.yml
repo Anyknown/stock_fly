@@ -17,5 +17,12 @@ jobs:
                 run: |
                     pip install --user yahoo_fin
             -
+                name: Prompt for purchase prices
+                id: purchase_prices
+                run: 'echo "Enter purchase prices (comma-separated):"'
+                shell: bash
+            -
                 name: Run python script
-                run: python3 stock_fly.py
+                run: >
+                    python3 stock_fly.py ${{
+                    steps.purchase_prices.outputs.purchase_prices }}
