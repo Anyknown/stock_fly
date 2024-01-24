@@ -15,7 +15,7 @@ purchase_price = [None, None, None, None]
 data = pd.DataFrame()
 
 data["Purchase Price"] = purchase_price
-data["Current Price"] = []
+data["Current Price"] = np.empty(len(tickers))
 data["% Change"] = []
 
 for ticker, purchase_price in zip(tickers, purchase_price):
