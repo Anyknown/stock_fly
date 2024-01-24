@@ -1,4 +1,8 @@
 name: Stock Fly
+'on':
+    push:
+        branches:
+            - main
 env:
     python:
         - 3.8
