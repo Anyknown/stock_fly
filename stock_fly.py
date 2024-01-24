@@ -11,6 +11,8 @@ import yfinance as yf
 import pandas as pd
 
 
+percent_change = 0
+
 tickers = sys.argv[1:]
 
 
@@ -29,11 +31,12 @@ for ticker in tickers:
 
 
 for index, row in data.iterrows():
-    current_price = data.loc[index, "Current Price"]
-    if row["Purchase Price"] != 0:
+    
+if row["Purchase Price"] != 0:
         percent_change = (current_price - row["Purchase Price"]) / row["Purchase Price"]
     else:
         percent_change = 0
+
 data.loc[index, "% Change"] = percent_change
 
 
