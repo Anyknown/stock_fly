@@ -30,8 +30,8 @@ for ticker, purchase_price in zip(tickers, purchase_price):
 else:
         percent_change = (current_price - purchase_price) / purchase_price
 
-    data.loc[data["Current Price"] == "", "Current Price"] = current_price
-    data.loc[data["Purchase Price"] == "", "Purchase Price"] = purchase_price
-    data.loc[data["% Change"] == "", "% Change"] = percent_change
+        data.loc[data["Current Price"] == "", "Current Price"] = current_price
+        data.loc[data["Purchase Price"] == "", "Purchase Price"] = purchase_price
+        data.loc[data["% Change"] == "", "% Change"] = percent_change
 
 print(data)
