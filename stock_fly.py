@@ -1,27 +1,30 @@
-import os
-import sys
-
-if not os.path.exists(".yfinance-installed"):
-    print("Installing yfinance...")
-    os.system("pip install yfinance")
-    open(".yfinance-installed", "w").close()
-
 import yfinance as yf
+import builtins
 import pandas as pd
+import webbrowser
 
-percent_change = 0
-tickers = sys.argv[1:]
+def stock_fly(tickers, purchase_prices):
+    
+data = yf.download(tickers=tickers, period="1y", interval="1d")
 
-data = pd.DataFrame()
+    
+change = (data["Close"] - purchase_prices)/purchase_prices
 
-data["Purchase Price"] = []
-data["Current Price"] = []
-data["% Change"] = []
+    
+for ticker, price, change_percent in zip(data["ticker"], data["Close"], change):
+        print(f"{ticker}: Price: ${price:,.2f} | Percent Change: {change_percent:.2%}")
 
+
+tickers = input("Enter the ticker symbols you want to include (separated by spaces): ").split()
+purchase_prices = []
 for ticker in tickers:
-    ticker = tickers[0]
-    stock = yf.Ticker(ticker)
-    current_price = stock.price
-    data.loc[data["Current Price"] == "", "Current Price"] = current_price
+    purchase_prices.append(float(input(f"Enter the purchase price for {ticker}: ")))
+
+
+stock_fly(tickers, purchase_prices)
+
 
 data.to_csv("stock_data.csv")
+
+
+webbrowser.open("https://files.pythonanywhere.com/files/AnyKnown/stock_data.csv", new=2)
