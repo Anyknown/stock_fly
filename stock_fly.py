@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import os
 import sys
 import requests
@@ -24,7 +23,7 @@ for ticker, purchase_price in zip(tickers, purchase_price):
     stock = yf.Ticker(ticker)
     stock_info = stock.info
 
-    current_price = stock_info["regularMarketClose"]
+    current_price = stock_info["close"]
     if purchase_price is None:
         percent_change = 0
 else:
