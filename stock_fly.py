@@ -1,15 +1,17 @@
-import yahoo_fin
-import pandas as pd
+import os
 import sys
 
 
-tickers = ["NFLX", "U", "TSLA", "DOCN"]
+if not os.path.exists(".yfinance-installed"):
+    print("Installing yfinance...")
+    os.system("pip install yfinance")
+    open(".yfinance-installed", "w").close()
+
+import yfinance as yf
+import pandas as pd
 
 
-purchase_prices = sys.argv[1:]
-
-
-purchase_prices = [float(price) for price in purchase_prices]
+tickers = sys.argv[1:]
 
 
 data = pd.DataFrame()
@@ -20,17 +22,11 @@ data["Current Price"] = []
 data["% Change"] = []
 
 
-for index, ticker in enumerate(tickers):
-    if index < len(purchase_prices):
-        data.loc[index, "Purchase Price"] = purchase_prices[index]
-    else:
-        data.loc[index, "Purchase Price"] = 0
-
 for ticker in tickers:
-    stock = yahoo_fin.Ticker(ticker) # Use yahoo_fin.Ticker instead of StockInfo
-current_price = stock.price
+    stock = yf.Ticker(ticker)
+    current_price = stock.price
+    data.loc[data["Current Price"] == "", "Current Price"] = current_price
 
-data.loc[data["Current Price"] == "", "Current Price"] = current_price # Fix indentation
 
 for index, row in data.iterrows():
     current_price = data.loc[index, "Current Price"]
