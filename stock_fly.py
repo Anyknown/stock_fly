@@ -27,8 +27,8 @@ for index, ticker in enumerate(tickers):
         data.loc[index, "Purchase Price"] = 0
 
 for ticker in tickers:
-    stock = yahoo_fin.StockInfo(ticker)
-    current_price = stock.current_price
+    stock = yahoo_fin.Ticker(ticker) # Use yahoo_fin.Ticker instead of StockInfo
+current_price = stock.price
     data.loc[data["Current Price"] == "", "Current Price"] = current_price
 
 
