@@ -3,6 +3,7 @@ import sys
 import requests
 import yfinance as yf
 import pandas as pd
+import numpy as np
 
 if not os.path.exists(".yfinance-installed"):
     print("Installing yfinance...")
@@ -16,7 +17,7 @@ data = pd.DataFrame()
 
 data["Purchase Price"] = purchase_price
 data["Current Price"] = np.empty(len(tickers))
-data["% Change"] = []
+data["% Change"] = np.empty(len(tickers))
 
 for ticker, purchase_price in zip(tickers, purchase_price):
     stock = yf.Ticker(ticker)
@@ -27,8 +28,8 @@ for ticker, purchase_price in zip(tickers, purchase_price):
 else:
         percent_change = (current_price - purchase_price) / purchase_price
 
-        data.loc[data["Current Price"] == "", "Current Price"] = current_price
-        data.loc[data["Purchase Price"] == "", "Purchase Price"] = purchase_price
-        data.loc[data["% Change"] == "", "% Change"] = percent_change
+    data.loc[data["Current Price"] == "", "Current Price"] = current_price
+    data.loc[data["Purchase Price"] == "", "Purchase Price"] = purchase_price
+    data.loc[data["% Change"] == "", "% Change"] = percent_change
 
 print(data)
